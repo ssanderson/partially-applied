@@ -1,0 +1,30 @@
+<!doctype html>
+<meta charset="utf-8">
+<link rel="stylesheet" href="{{ '/static/style.css'|url }}">
+<link rel="stylesheet" href="{{ get_pygments_stylesheet()|url }}">
+<title>{% block title %}Welcome{% endblock %} — Partially Applied</title>
+<body>
+  <header>
+    <h1><a href="/">Partially Applied</a></h1>
+    <nav>
+      <ul class="nav navbar-nav">
+        {% for href, title in [
+          ['/blog', 'Blog'],
+          ['/software', 'Software'],
+          ['/speaking', 'Speaking'],
+          ['/about', 'About']
+        ] %}
+        <li {% if this.is_child_of(href) %} class="active" {% endif %}>
+          <a href="{{ href|url }}">{{ title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </nav>
+  </header>
+  <div class="page">
+    {% block body %}{% endblock %}
+  </div>
+  <footer>
+    &copy; Copyright 2018 Scott Sanderson.
+  </footer>
+</body>

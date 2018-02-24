@@ -1,0 +1,35 @@
+body:
+
+# The PyData Toolbox
+
+Python's success as a data analysis language is due in large part to the
+strength of its ecosystem for scientific computing. Though we've seen an
+explosion of domain-specific tools in the PyData space over the last few years,
+nearly all of these tools are built on a small set of foundational libraries:
+Numpy, Pandas, Matplotlib, and Jupyter.
+
+In this talk, we'll take a whirlwind tour of these core libraries, providing a
+conceptual overview of how each library works and what problems each library
+aims to solve. Examples will be drawn from financial applications, but the
+tools and techniques discussed are applicable to any quantitative domain.
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/YAHZa8xZWBU?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+## Playing With Python Bytecode
+
+Ever wondered what Python is actually doing when it executes your code? Want to
+learn to hand-craft artisanal Python bytecode? In this talk, we explain
+CPython's internal code representation, and we demonstrate techniques for
+modifying code objects for fun and profit.
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/mxjv9KqzwjI?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+## Unspeakably Evil Hacks in Service of Marginally Improved Syntax (PyBay 2016)
+
+One of Python's strengths as a dynamic language is its suite of powerful
+metaprogramming tools. What happens, however, when you want to move beyond the
+tools provided by "traditional" metaprogramming techniques? This talk will take
+the audience on a brief tour of projects and techniques that stretch the
+boundaries of what's possible in Python.
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/CcfZeZNJC4E?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>

@@ -1,0 +1,173 @@
+title: Exploring Church Encoding with Python
+---
+pub_date: 2018-02-12
+---
+author: Scott Sanderson
+---
+twitter_handle: @scottbsanderson
+---
+body:
+
+This post is about [Church Encoding](https://en.wikipedia.org/wiki/Church_encoding), a method of representing
+natural numbers as [lambda calculus](https://en.wikipedia.org/wiki/Lambda_calculus) terms.
+
+### A (Very) Brief Introduction to Lambda Calculus
+
+Lambda calculus is a theoretical model for computing in which the only operations are:
+
+1. Defining anonymous functions.
+2. Applying functions to arguments.
+
+There are [many](http://www.inf.fu-berlin.de/lehre/WS03/alpi/lambda.pdf)
+[excellent](https://www.youtube.com/watch?v=eis11j_iGMs)
+[resources](https://plato.stanford.edu/entries/lambda-calculus/) on the internet that describe the lambda calculus and
+explain why it's important in the history computer science. For the purposes of this post, the important
+features of the lambda calculus are:
+
+1. The only objects of lambda calculus are anonymous functions.
+2. Lambda calculus has no notion of assignment to variables.
+3. The only way to introduce a new variable is as a parameter to a function.
+
+Despite these limitations, lambda calculus turns out to be a surprisingly powerful computing model. So powerful, in fact,
+that we have [reason to believe](https://en.wikipedia.org/wiki/Church%E2%80%93Turing_thesis) that lambda calculus can
+express every computable function.
+
+TODO: Transition
+
+### Encoding Numbers as Functions
+
+There are many ways to encode numbers as functions. Here's one example of such an encoding:
+
+> Encode the number `N` as a function which takes no arguments and returns `N`.
+
+An implementation of this encoding in Python:
+
+```python
+def encode(N):
+    """Encode the natural number N as a function."""
+    return lambda: N
+```
+
+One problem with this encoding is that we can't implement arithmetic on encoded
+functions without on "pre-encoded" integers. For example, an `add` function for
+encoded numerals would be something like:
+
+```python
+def add(f, g):
+    """Add two encoded numbers."""
+    return lambda: f() + g()
+```
+
+This definition produces a "correct" answer, but it requires decoding our numerals back into integers, adding the
+decoded values, and then re-encoding into functions.
+
+What we really want is to encode integers as functions in a way that doesn't depend on the prior existence of integers
+(or any other non-function entities) as objects in our language.
+
+### Church Encoding
+
+How can we encode numbers as functions in a way that doesn't depend on non-function objects? Well, in a world where we
+only have functions, we know at the following:
+
+- `church(N)` will be a function.
+- The input to `church(N)` will be a function.
+- The output of `church(N)` will be a function.
+
+We know that `church(N)` will be a function that takes a function and returns another function. In other words, we know
+that our church encoding is going to look like this:
+
+```python
+church(0) == lambda f: lambda x: ???
+church(1) == lambda f: lambda x: ???
+...
+church(N) == lambda f: lambda x: ???
+```
+
+What can we do in place of `???`. The only variables available to us are the functions `f` and `x`, and the only thing
+we can do with functions is apply them to arguments.
+
+The clever idea behind Church Encoding is to encode the natural number `N` as a function that applies another function
+to an argument `N` times.
+
+For example:
+
+```python
+church(0) == lambda f: lambda x: x
+church(1) == lambda f: lambda x: f(x)
+church(2) == lambda f: lambda x: f(f(x))
+...
+church(N) == lambda f: lambda x: f(f(...N times...f(x)))
+```
+
+```python
+def church(N):
+    return eval("lambda f: lambda x:" + "f(" * N + "x" + ")" * N)
+```
+
+Let's confirm that our church-encoded numerals work as expected:
+
+```python
+>>> church(3)(lambda x: x + 1)(2)
+5
+>>> church(3)(lambda x: x * 2)(3)
+24
+```
+
+### Decoding Numerals
+
+We can convert an encoded numeral back into an integer by applying the numeral to "increment by one" and then calling
+the result on zero.
+
+```python
+def unchurch(f):
+    return f(lambda x: x + 1)(0)
+```
+
+```python
+>>> unchurch(church(3))
+3
+>>> unchurch(church(10))
+10
+```
+
+### Booleans
+
+```python
+church(True)  == lambda a: lambda b: a
+church(False) == lambda a: lambda b: b
+```
+
+```python
+and_ = lambda x, y: x(x(y))
+```
+
+### Arithmetic
+
+Call f M times on the result of calling f N times on x.
+
+```python
+add = lambda M, N: lambda f: lambda x: M(f)(N(f)(x))
+```
+
+"Call f N times" M times.
+
+```python
+multiply = lambda M, N: lambda f: lambda x: M(N(f))(x)
+multiply = lambda M, N: lambda f: M(N(f))
+```
+
+```python
+exp = lambda M, N: lambda f: lambda x: N(M)(f)(x)
+exp = lambda M, N: N(M)
+```
+
+### Footnotes
+
+```python
+def church(N):
+    if N == 0:
+        return lambda f: lambda x: x
+    else:
+        prev = church(N - 1)(f)
+        return lambda f: lambda x: f(church(N - 1)(f)(x))
+```

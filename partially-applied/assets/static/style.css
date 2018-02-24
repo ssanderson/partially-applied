@@ -1,0 +1,65 @@
+body {
+    font-family: Lato;
+}
+
+a {
+    text-decoration: none;
+}
+
+div.page a {
+    color: #466DB2;
+}
+
+a:hover {
+    color: #33bbdf;
+    text-decoration: underline;
+}
+
+header {
+    font-family: 'Roboto Condensed';
+}
+
+header, footer, div.page {
+    width: 760px;
+    margin: 0 auto;
+    padding: 20px 30px;
+}
+
+header h1 {
+    color: #169bbd;
+    margin: 0;
+    font-weight: normal;
+    font-size: 40px;
+    /*Consider 'Source Sans Pro' ?*/
+}
+
+header h1 a:hover {
+    text-decoration: none;
+}
+
+header nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+header nav ul li {
+    display: inline;
+    margin: 0 25px 0 0;
+    padding: 0;
+}
+
+header a {
+    color: black;
+}
+
+header a:hover {
+    color: black;
+}
+
+header ul a:hover {
+    text-decoration: underline;
+}
+
+div.page {
+}

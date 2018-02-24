@@ -1,0 +1,29 @@
+body:
+
+This page lists open source software that I've created or contributed to in a
+significant way.
+
+## [interface](https://github.com/ssanderson/interface)
+
+``interface`` is a Python library for defining interfaces and for verifying
+that classes implement those interfaces. It aims to provide better error
+messages and more strict semantics than Python's built-in ``abc`` module.
+
+## [pgcontents](https://github.com/quantopian/pgcontents)
+
+``pgcontents`` is a [Jupyter Notebook](https://jupyter-notebook.readthedocs.io/en/stable/)
+extension library that replaces the Jupyter's default notebook storage system
+with an alternative system that stores notebooks in
+[PostgreSQL](https://www.postgresql.org/).
+
+## [codetransformer](https://github.com/llllllllll/codetransformer)
+
+``codetransformer`` is an experimental library for rewriting python bytecode at
+runtime. I co-maintain codetransformer with [Joe
+Jevnik](https://github.com/llllllllll).
+
+## [zipline](https://github.com/quantopian/zipline)
+
+``zipline`` is a Python library for writing and testing automated trading
+strategies. It forms the core of [Quantopian](www.quantopian.com)'s backtesting
+and live trading platforms.

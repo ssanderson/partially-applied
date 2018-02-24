@@ -1,0 +1,49 @@
+- Response to http://matthewrocklin.com/blog/work/2018/01/27/write-dumb-code
+  - Special case of "Code Quality is Audience Dependent"
+  - Joe PR: https://github.com/mrocklin/multipledispatch/pull/66
+  - Different Value Systems for Code
+    - Solving Real World Problems (Matt)
+    - Software as Recreation
+    - Software as Performance Art (Joe, David Beazley, James)
+
+- Church Encoding
+church = lambda n: (lambda f: lambda x: f(church(n - 1)(f)(x))) if n else (lambda f: lambda x: x)
+unchurch = lambda N: N(lambda x: x + 1)(0)
+
+succ = lambda N: lambda f: lambda x: f(N(f)(x))
+add = lambda M, N: lambda f: lambda x: M(f)(N(f)(x))
+multiply = lambda M, N: lambda f: M(N(f))
+exp = lambda M, N: N(M)
+
+- Threads vs. Processes
+
+- Duplication in Test Suites
+
+A third option would be to just duplicate the setup in both test suites. This
+is actually probably my preference. It's important when reading tests that
+there's a clear correspondence between the scenario created in the test setup
+and the results asserted in the test. The danger of refactoring test code to
+avoid duplication is that it has a tendency to hide that correspondence. It can
+also make it hard to see which parts of a test setup are essential to the logic
+under test and which parts are incidental necessities. In this function, for
+example, the `task_to_worker_id` function is essential to `ListTasksTest`,
+because that suite includes a test that cares about filtering by worker id. But
+that logic isn't essential to `ListJobsTest`, since nothing in the job
+reporting code cares about how workers get assigned. When some of the test
+setup is duplicated, the differences become more conspicuous: if ListTasksTest
+overrides how worker_ids are set and ListJobsTest doesn't, then that signals to
+a reader that worker_ids are relevant to the logic of one of those suites and
+not the other.
+
+The balancing act here is that if a test setup is too verbose, then that can
+also obscure the logic under test. The tricky design problem for tests is
+finding the right balance between being explicit enough that it's clear what's
+happening and being concise enough that a reader can quickly understand the
+relevant details of the scenario.
+
+
+- Work with Deadlines, not Timeouts
+
+- Turkey Burger Comments/Docstrings
+
+  Docstrings which don't provide any value beyond what was already obvious from the name.
