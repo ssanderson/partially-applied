@@ -1,7 +1,24 @@
-title: About
+_model: about
 ---
-body:
+content:
 
-I'm a programmer and occasional speaker living in Cambridge, Massachusetts.
+You've reached the personal website of Scott Sanderson.
 
-I currently work at [Quantopian](https://www.quantopian.com).
+I'm a software developer and occasional speaker living in Cambridge, Massachusetts. I work primarily
+in [Python](https://www.python.org/), secondarily in C or C++, and I dabble in a variety of other
+languages.
+
+My academic background is in Mathematics and Philosophy, with a focus on foundational questions in
+mathematics, computer science, and epistemology.
+
+I'm interested in the intersection between theoretical ideas and practical
+
+I currently work at [Quantopian](https://www.quantopian.com), where I build systems for researching
+and developing quantitative trading algorithms in Python.
+
+You can find me elsewhere on the internet at the following locations:
+
+- **GitHub:** [ssanderson](www.github.com/ssanderson)
+- **Twitter:** [@scottbsanderson](https://twitter.com/scottbsanderson)
+- **LinkedIn:** https://www.linkedin.com/in/scott-sanderson-7a9a5658/
+

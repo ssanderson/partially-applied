@@ -1,0 +1,10 @@
+<div class="talk">
+  <div class="article-title-small">
+    <a href="{{ this.video_link }}" target="_blank">{{ this.title }}</a>
+  </div>
+  <div class="article-title-decoration">
+    Delivered at {{ this.delivered_at }}. {% if this.slides_link %}<a href="{{ this.slides_link }}">(Slides)</a>{% endif %}
+  </div>
+  <div class="article-body">{{ this.description }}</div>
+  <hr>
+</div>

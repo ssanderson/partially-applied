@@ -1,25 +1,35 @@
 <!doctype html>
-<meta charset="utf-8">
-<link rel="stylesheet" href="{{ '/static/style.css'|url }}">
-<link rel="stylesheet" href="{{ get_pygments_stylesheet()|url }}">
-<title>{% block title %}Welcome{% endblock %} — Partially Applied</title>
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700|Lato|Roboto+Condensed" rel="stylesheet">
+  <link rel="stylesheet" href="{{ get_pygments_stylesheet()|url }}">
+  <link rel="stylesheet" href="{{ '/static/style.css'|url }}">
+  <script defer src="{{ '/static/fontawesome/fa-regular.js'|url }}"></script>
+  <script src="{{ '/static/fontawesome/fontawesome.js'|url }}"></script>
+</head>
+
+<title>{% block title %}{% endblock %} Partially Applied</title>
 <body>
+  <div id="site-content">
   <header>
     <h1><a href="/">Partially Applied</a></h1>
-    <nav>
-      <ul class="nav navbar-nav">
+    <div class="menu">
+      <nav>
         {% for href, title in [
-          ['/blog', 'Blog'],
-          ['/software', 'Software'],
-          ['/speaking', 'Speaking'],
-          ['/about', 'About']
+        ['/blog', 'Blog'],
+        ['/software', 'Software'],
+        ['/speaking', 'Speaking'],
+        ['/about', 'About']
         ] %}
-        <li {% if this.is_child_of(href) %} class="active" {% endif %}>
-          <a href="{{ href|url }}">{{ title }}</a>
-        </li>
+        <div class="menu-item">
+          <a {% if this.is_child_of(href) %} class="active" {% endif %}
+             href="{{ href|url }}">
+            {{ title }}
+          </a>
+        </div>
         {% endfor %}
-      </ul>
-    </nav>
+      </nav>
+    </div>
   </header>
   <div class="page">
     {% block body %}{% endblock %}
@@ -27,4 +37,5 @@
   <footer>
     &copy; Copyright 2018 Scott Sanderson.
   </footer>
+  </div>
 </body>

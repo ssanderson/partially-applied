@@ -1,127 +1,192 @@
-title: Exploring Church Encoding with Python
+title: Exploring Church Numerals with Python
 ---
-pub_date: 2018-02-12
+pub_date: 2018-06-03
 ---
 author: Scott Sanderson
 ---
 twitter_handle: @scottbsanderson
 ---
+reading_time: 12
+---
 body:
 
-This post is about [Church Encoding](https://en.wikipedia.org/wiki/Church_encoding), a method of representing
-natural numbers as [lambda calculus](https://en.wikipedia.org/wiki/Lambda_calculus) terms.
+This post is an exploration of [Church Encoding](https://en.wikipedia.org/wiki/Church_encoding), a
+method of representing natural numbers as [lambda
+calculus](https://en.wikipedia.org/wiki/Lambda_calculus) terms.
 
 ### A (Very) Brief Introduction to Lambda Calculus
 
-Lambda calculus is a theoretical model for computing in which the only operations are:
+Lambda calculus is a theoretical model for computing in which the only allowed operations are:
 
 1. Defining anonymous functions.
 2. Applying functions to arguments.
 
 There are [many](http://www.inf.fu-berlin.de/lehre/WS03/alpi/lambda.pdf)
 [excellent](https://www.youtube.com/watch?v=eis11j_iGMs)
-[resources](https://plato.stanford.edu/entries/lambda-calculus/) on the internet that describe the lambda calculus and
-explain why it's important in the history computer science. For the purposes of this post, the important
-features of the lambda calculus are:
+[resources](https://plato.stanford.edu/entries/lambda-calculus/) online that describe lambda
+calculus and explain why it's important in the history and theory of computer science. For the
+purposes of this post, the important features of the lambda calculus are:
 
-1. The only objects of lambda calculus are anonymous functions.
+1. The only objects of lambda calculus are functions.
 2. Lambda calculus has no notion of assignment to variables.
-3. The only way to introduce a new variable is as a parameter to a function.
+3. The only way to introduce a new variable in lambda calculus is as a parameter to a function.
 
-Despite these limitations, lambda calculus turns out to be a surprisingly powerful computing model. So powerful, in fact,
-that we have [reason to believe](https://en.wikipedia.org/wiki/Church%E2%80%93Turing_thesis) that lambda calculus can
-express every computable function.
+Despite these limitations, lambda calculus turns out to be a surprisingly powerful model of
+computing. So powerful, in fact, that we have [reason to
+believe](https://en.wikipedia.org/wiki/Church%E2%80%93Turing_thesis) that lambda calculus can define
+every computable function!
 
-TODO: Transition
+[//]: # (PLUGIN-READ-FULL-POST)
+
+If this is your first time hearing about lambda calculus, that last sentence probably raised a few
+questions. How can lambda calculus define every computable function when it only operates on
+functions? What about functions defined on integers like "add one" or "double"? Are they not
+computable? What does it even **mean** to "compute" using only functions?
+
+It would take much more than a blog post to answer all of these questions completely. The remainder
+of this post will attempt to answer just one part of one of those questions: How can lambda calculus
+define functions that compute on natural numbers?
 
 ### Encoding Numbers as Functions
 
-There are many ways to encode numbers as functions. Here's one example of such an encoding:
+We can define lambda calculus functions that compute on natural numbers by defining a **mapping**
+that associates every natural number N with a unique lambda calculus function, which we call the
+"encoding" of N. Given such an mapping, we can build lambda calculus functions that "compute on
+natural numbers" by accepting encoded numbers as inputs and producing encoded numbers as outputs.
 
-> Encode the number `N` as a function which takes no arguments and returns `N`.
-
-An implementation of this encoding in Python:
+There are lots of ways to define mappings between integers and functions. Here's an example of a
+not-very-interesting mapping written in [Python](www.python.org):
 
 ```python
 def encode(N):
-    """Encode the natural number N as a function."""
+    """Encode N as a function that takes no
+    arguments and returns N.
+    """
     return lambda: N
 ```
 
-One problem with this encoding is that we can't implement arithmetic on encoded
-functions without on "pre-encoded" integers. For example, an `add` function for
-encoded numerals would be something like:
+I say that this encoding isn't very interesting because it doesn't allow us to implement operations
+on encoded numbers without "decoding" them back into their original representation.
+
+For example, to define an `add` function for this encoding, we would have to write something like:
 
 ```python
 def add(f, g):
-    """Add two encoded numbers."""
+    """Add two encoded numbers.
+    """
     return lambda: f() + g()
 ```
 
-This definition produces a "correct" answer, but it requires decoding our numerals back into integers, adding the
-decoded values, and then re-encoding into functions.
+This definition of `add` takes two encoded numbers and produces the encoding of their sum, but it
+works by simply decoding its inputs back into integers, adding the decoded values, and then
+re-encoding the result as a function again. We can't use this definition to encode numerals in
+lambda calculus, because we can't rely on the prior existence of a `+` operation that works on
+decoded numbers.
 
-What we really want is to encode integers as functions in a way that doesn't depend on the prior existence of integers
-(or any other non-function entities) as objects in our language.
+What we really want is a way to encode integers as functions that **doesn't depend on the existence
+of unencoded integers** (or any other non-function entities).
 
 ### Church Encoding
 
-How can we encode numbers as functions in a way that doesn't depend on non-function objects? Well, in a world where we
-only have functions, we know at the following:
+How can we write an encoding that maps natural numbers to functions in a way that the resulting
+function only uses operations that are allowed in lambda calculus?
 
-- `church(N)` will be a function.
-- The input to `church(N)` will be a function.
-- The output of `church(N)` will be a function.
+Well, in a world where we only have functions, we know at least the following:
 
-We know that `church(N)` will be a function that takes a function and returns another function. In other words, we know
-that our church encoding is going to look like this:
+- `encode(N)` will be a function.
+- The input to `encode(N)` will be a function.
+- The output of `encode(N)` will be a function.
 
-```python
-church(0) == lambda f: lambda x: ???
-church(1) == lambda f: lambda x: ???
-...
-church(N) == lambda f: lambda x: ???
-```
-
-What can we do in place of `???`. The only variables available to us are the functions `f` and `x`, and the only thing
-we can do with functions is apply them to arguments.
-
-The clever idea behind Church Encoding is to encode the natural number `N` as a function that applies another function
-to an argument `N` times.
-
-For example:
+In other words, we know our encoding operation will have to look like this:
 
 ```python
-church(0) == lambda f: lambda x: x
-church(1) == lambda f: lambda x: f(x)
-church(2) == lambda f: lambda x: f(f(x))
+encode(0) == lambda f: lambda x: ???
+encode(1) == lambda f: lambda x: ???
 ...
-church(N) == lambda f: lambda x: f(f(...N times...f(x)))
+encode(N) == lambda f: lambda x: ???
 ```
+
+What options do we have for filling in the question marks? Well, the only variables we have in scope
+are `f` and `x`, and the only thing we can do with functions is apply them to arguments, so our
+options are limited to expressions composed of repeated applications of `f` and `x`, e.g. ``f(x)``,
+`f(f(x))`, `f(f)(x)`.
+
+The trick to building a useful encoding from these tools is to notice that we can use the **number
+of repeated applications of `f`** to encode the natural number N. So, `encode(1)` applies `f` to `x`
+one time, `encode(2)` applies `f` to `x` two times, `encode(3)` applies `f` three times, and so on.
+
+```python
+encode(0) == lambda f: lambda x: x
+encode(1) == lambda f: lambda x: f(x)
+encode(2) == lambda f: lambda x: f(f(x))
+encode(3) == lambda f: lambda x: f(f(f(x)))
+...
+```
+
+This encoding of the natural numbers as lambda expressions is called the [Church
+Encoding](https://en.wikipedia.org/wiki/Church_encoding), after its inventor [Alonzo
+Church](https://en.wikipedia.org/wiki/Alonzo_Church), who also invented lambda calculus. The
+functions produced by Church Encoding are often referred to as "Church numerals".
+
+We can write a Python function that converts an integer into a Church numeral using the
+[`eval`](https://docs.python.org/3.6/library/functions.html#eval) function:
 
 ```python
 def church(N):
-    return eval("lambda f: lambda x:" + "f(" * N + "x" + ")" * N)
+    """Church-encode the natural number N.
+    """
+    signature = "lambda f: lambda x:"
+    return_val = "f(" * N + "x" + ")" * N
+    return eval(signature + return_val)
 ```
 
+### Testing Our Church Encoding
+
 Let's confirm that our church-encoded numerals work as expected:
+
+`church(N)` should produce a function that, when applied to a function `f`, returns a function that
+will feed its input through `f` `N` times.
+
+If we call `church(3)` on "increment by one", we should get back "increment by three":
 
 ```python
 >>> church(3)(lambda x: x + 1)(2)
 5
->>> church(3)(lambda x: x * 2)(3)
-24
+```
+
+`church(4)` called on "double" should give us back "double four times", i.e. "multiply by 16":
+
+```python
+>>> church(4)(lambda x: x * 2)(3)
+48
+```
+
+Note that `church(N)` doesn't know about or depend in any way on numbers. We got "add three" and
+"multiply by 16" in the examples above because we applied our church numerals to functions that
+operated on integers, but we can apply our numerals to any function that can applied iteratively on
+its own output.
+
+For example, if we call `church(2)` on a function that gets the first element of a sequence, we
+should end up with "get the first element of the first element of a sequence":
+
+```python
+>>> church(2)(lambda x: x[0])(['foo', 'bar'])
+'f'
 ```
 
 ### Decoding Numerals
 
-We can convert an encoded numeral back into an integer by applying the numeral to "increment by one" and then calling
-the result on zero.
+We can convert an encoded numeral back into an integer by applying the numeral to "increment by one"
+and then calling the result on zero.
 
 ```python
 def unchurch(f):
+    """Convert a Church Numeral to a Python integer.
+    """
     return f(lambda x: x + 1)(0)
 ```
+
+For any integer N, `unchurch(church(N))` should give us back `N`:
 
 ```python
 >>> unchurch(church(3))
@@ -130,44 +195,225 @@ def unchurch(f):
 10
 ```
 
-### Booleans
-
-```python
-church(True)  == lambda a: lambda b: a
-church(False) == lambda a: lambda b: b
-```
-
-```python
-and_ = lambda x, y: x(x(y))
-```
-
 ### Arithmetic
 
-Call f M times on the result of calling f N times on x.
+Now that we have a suitable representation of numbers as lambda expressions, we can turn our
+attention to implementing arithmetic on Church-encoded values.
+
+#### Increment
+
+The simplest operation we can implement on an Church-encoded integer is "increment by one".
 
 ```python
-add = lambda M, N: lambda f: lambda x: M(f)(N(f)(x))
+def increment(M):
+    """Add one to M.
+    """
+    return lambda f: lambda x: f(M(f)(x))
 ```
 
-"Call f N times" M times.
+The key observation here is that `M(f)` is a function that calls `f` some number of times on `x`,
+and we need to produce a function that calls `f` one time more than `M`. We can implement that
+function by applying `M(f)` to `x` and then feeding the result into `f`.
 
 ```python
-multiply = lambda M, N: lambda f: lambda x: M(N(f))(x)
-multiply = lambda M, N: lambda f: M(N(f))
+>>> unchurch(increment(church(3)))
+4
+```
+
+#### Addition
+
+Addition is implemented similarly to `increment`.
+
+```python
+def add(M, N):
+    """Add two church numerals.
+    """
+    return lambda f: lambda x: M(f)(N(f)(x))
+```
+
+To understand why the above definition works, recall that `M(f)(x)` evaluates to:
+
+```python
+f(f(... m times ...f(x)))
+```
+
+Similarly `N(f)(x)` evaluates to:
+
+```python
+f(f(... n times ...f(x)))
+```
+
+If we apply `M(f)` to the result of `N(f)(x)`, then we get:
+
+```python
+f(f(... m times ...f(f(... n times... f(x)))))
+```
+
+Which is just:
+
+```python
+f(f(... (m + n) times ...f(x)))
+```
+
+Which is exactly what we want `add(M, N)` to produce!
+
+```python
+>>> unchurch(add(church(3), church(4)))
+7
 ```
 
 ```python
-exp = lambda M, N: lambda f: lambda x: N(M)(f)(x)
-exp = lambda M, N: N(M)
+>>> unchurch(add(church(10), church(5)))
+15
 ```
 
-### Footnotes
+#### Multiplication
+
+The definition of multiplication is even simpler than the definition of addition:
 
 ```python
-def church(N):
-    if N == 0:
-        return lambda f: lambda x: x
-    else:
-        prev = church(N - 1)(f)
-        return lambda f: lambda x: f(church(N - 1)(f)(x))
+def multiply(M, N):
+    """Multiply two church numerals.
+    """
+    return lambda f: M(N(f))
 ```
+
+To see why this works, notice that `N(f)` is a function which, when applied to an input `x`, will
+produce:
+
+```python
+f(f(... n times ...f(x)))`
+```
+
+If we apply `M` to `N(f)`, we get a function that applies `N(f)`, `m`
+times. Since `N(f)` itself invokes `f` `n` times, we end up with a total of `m
+* n` applications of `f`, which is precisely what we want for `multiply(M, N)`.
+
+```python
+>>> unchurch(multiply(church(2), church(3)))
+6
+>>> unchurch(multiply(church(3), church(5)))
+15
+```
+
+#### Aside: Function Composition
+
+If you're familiar with functional programming, you might notice a common structure in our solutions
+for `add` and `multiply`. The innermost expression of both functions involved "chained" application
+of a pair of functions.
+
+In the implementation of `add`, we chained `M(f)` and `N(f)` on the input `x`:
+
+```python
+M(f)(N(f)(x))
+```
+
+In the implementation of `multiply`, we chained `M` and `N` on the input `f`:
+
+```python
+M(N(f))
+```
+
+Both of these expressions have the general form:
+
+```python
+function1(function2(input))
+```
+
+This pattern of feeding a single input through two or more functions is common enough in functional
+programming (and more generally in mathematics) that it has a special name: **function
+composition**.
+
+If we allow ourselves to cheat the lambda calculus rules a bit and make use of a `compose` helper
+function, the common structure of `add` and `multiply` becomes much clearer:
+
+```python
+def compose(f, g):
+    return lambda x: f(g(x))
+
+def add(M, N):
+    return lambda f: compose(M(f), N(f))
+
+def multiply(M, N):
+    return lambda f: compose(M, N)(f)
+```
+
+When written this way, we can see that:
+
+- To add two Church Numerals, you **apply** each numeral to an input and then **compose** the results.
+- To multiply two Church Numerals, you **compose** the numerals, and then **apply** the result to an
+  input.
+
+Of course, we don't actually need `compose` as a named function. We can define our own anonymous
+`compose` "inline" to stay closer to the spirit of lambda calculus:
+
+```python
+def add(M, N):
+    #                |------------- compose() -------------|
+    return lambda f: (lambda g: lambda h: lambda x: g(h(x)))(M(f))(N(f))
+
+def multiply(M, N):
+    #                |------------- compose() -------------|
+    return lambda f: (lambda g: lambda h: lambda x: g(h(x)))(M)(N)(f)
+```
+
+These compose-based definitions still produce the expected results:
+
+```python
+>>> unchurch(add(church(2), church(3)))
+5
+>>> unchurch(multiply(church(2), church(3)))
+6
+```
+
+#### Exponentiation
+
+The last definition I want to show in this post is exponentiation. We often think of exponentiation
+as being "more complex" than addition or multiplication, but the definition of exponentiation is the
+ends up being the simplest of any of the operators we've looked at:
+
+```python
+def exp(M, N):
+    """Raise `M` to the power of `M`.
+    """
+    return N(M)
+```
+
+The first time I saw this definition it blew my mind. Exponentiation on church numerals is just
+flipped function application!
+
+To see why this works, we can start by expanding `N(M)`. Assuming `N == church(n)`, we have:
+
+```python
+exp(M, N) == N(M)
+          == lambda f: M(M(... n times ...M(f)))
+```
+
+That still looks a pretty complicated, so let's see what this looks like in the
+special case where `N` is `church(2)`:
+
+```python
+exp(M, church(2)) == church(2)(M)
+                  == lambda f: M(M(f))
+```
+
+Wait a second, that looks familiar... `exp(M, church(2))` expands to the same expression as
+`multiply(M, M)`!
+
+```python
+multiply(M, M) == lambda f: M(M(f))
+```
+
+### Review
+
+In this blog post:
+
+- We learned how Church Encoding associates every natural number `n` with a lambda
+  calculus function of the form:
+  ```python
+  church(N) = lambda f: lambda x: f(f(... N times ...f(x)))
+  ```
+- We learned how to define addition, multiplication, and exponentiation for Church-encoded numerals.
+- We saw how the natural definitions of addition, multiplication and
+  exponentiation express intrinsic mathematical relationships between
+  iteration, function composition, and function application.

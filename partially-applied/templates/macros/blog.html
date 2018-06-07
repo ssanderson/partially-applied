@@ -1,10 +1,36 @@
+{% macro render_blog_post_metadata(post) %}
+  <div class="article-metadata">
+    <div class="article-publication-date">
+      <i class="far fa-calendar-alt"></i>
+      <div class="article-publication-date-text">
+        {{ post.pub_date | dateformat('medium') }}
+      </div>
+    </div>
+    <div class="article-reading-time">
+      <i class="far fa-clock"></i>
+      {{ post.reading_time }} Minute Read
+    </div>
+  </div>
+{% endmacro %}
+
 {% macro render_blog_post(post, from_index) %}
   <div class="blog-post">
-  {% if from_index %}
-    <h2><a href="{{ post|url }}">{{ post.title }}</a></h2>
-  {% else %}
-    <h2>{{ post.title }}</h2>
-  {% endif %}
-  {{ post.body }}
+    <div class="article-header">
+      <div class="article-title">
+        {% if from_index %}
+          <a href="{{ post|url }}">{{ post.title }}</a>
+        {% else %}
+          {{ post.title }}
+        {% endif %}
+      </div>
+      {{ render_blog_post_metadata(post) }}
+    </div>
+    <div class="article-body">
+      {% if from_index %}
+        {{ post.body_short }}
+      {% else %}
+        {{ post.body }}
+      {% endif %}
+    </div>
   </div>
 {% endmacro %}

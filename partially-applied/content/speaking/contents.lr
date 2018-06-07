@@ -1,35 +1,107 @@
-body:
+_model: speaking
+---
+preamble:
 
-## The PyData Toolbox
+I speak at software conferences and meetups a few times each year. Many of my
+talks are about metaprogramming or numerical programming in Python.
 
-Python's success as a data analysis language is due in large part to the
-strength of its ecosystem for scientific computing. Though we've seen an
-explosion of domain-specific tools in the PyData space over the last few years,
-nearly all of these tools are built on a small set of foundational libraries:
-Numpy, Pandas, Matplotlib, and Jupyter.
+---
+talks:
 
-In this talk, we'll take a whirlwind tour of these core libraries, providing a
-conceptual overview of how each library works and what problems each library
-aims to solve. Examples will be drawn from financial applications, but the
-tools and techniques discussed are applicable to any quantitative domain.
+#### talk ####
+title: Playing With Python Bytecode
+----
+video_link: https://www.youtube.com/watch?v=mxjv9KqzwjI
+----
+delivered_at: PyCon 2016
+----
+description:
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/YAHZa8xZWBU?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+This is the talk that I'm most proud of. [Joe Jevnik](https://github.com/llllllllll) and I were
+looking for a way to give a presentation about
+[codetransformer](https://github.com/llllllllll/codetransformer), a Python bytecode library
+manipulation library that we co-maintain. We both wanted to give the talk, but neither of us wanted
+to do the usual boring format of "you talk for five minutes, then I talk for five minutes".
 
-## Playing With Python Bytecode
+We eventually hit on the idea of telling the audience that Joe and Scott couldn't make it, and that
+I was a conference organizer trying to give the talk in their place. The rest of the talk fell into
+place quickly after that that, and the final result was a unique presentation that still gets me
+recognized occasionally.
 
-Ever wondered what Python is actually doing when it executes your code? Want to
-learn to hand-craft artisanal Python bytecode? In this talk, we explain
-CPython's internal code representation, and we demonstrate techniques for
-modifying code objects for fun and profit.
+#### talk ####
+title: Foundations of Numerical Computing
+----
+video_link: https://www.youtube.com/watch?v=aGGbnMyeZs0
+----
+delivered_at: PyCon 2018
+----
+description:
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/mxjv9KqzwjI?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+I gave this tutorial at PyCon 2018 with the goal of being a first course on
+[NumPy](http://www.numpy.org/), the foundational library of the numerical
+Python ecosystem.
 
-## Unspeakably Evil Hacks in Service of Marginally Improved Syntax (PyBay 2016)
+The tutorial is broken up into six sections, each of which has a set of exercises that go along with
+the lecture material. You can try the exercises in a live Jupyter Notebook hosted on
+[Binder](https://mybinder.org/) by clicking
+[here](https://mybinder.org/v2/gh/ssanderson/foundations-of-numerical-computing/master).
 
-One of Python's strengths as a dynamic language is its suite of powerful
-metaprogramming tools. What happens, however, when you want to move beyond the
-tools provided by "traditional" metaprogramming techniques? This talk will take
-the audience on a brief tour of projects and techniques that stretch the
-boundaries of what's possible in Python.
+#### talk ####
+title: Hosting Jupyter Notebooks for 100,000 Users
+----
+video_link: https://www.youtube.com/watch?v=omxY1YsPGUc https://www.youtube.com/watch?v=TtsbspKHJGo
+----
+delivered_at: JupyterCon 2017, JupyterDay Boston
+----
+slides_link: https://speakerdeck.com/ssanderson/hosting-notebooks-for-100-000-users
+----
+description:
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/CcfZeZNJC4E?rel=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+This talk describes work that I did to build a hosted [Jupyter Notebook](http://jupyter.org/)
+platform for [Quantopian](https://www.quantopian.com/). It provides an overview of
+[JupyterHub](https://github.com/jupyterhub/jupyterhub), and it shows how we customize Jupyter for
+the Quantopian platform.
+
+#### talk ####
+title: The PyData Toolbox
+----
+video_link: https://www.youtube.com/watch?v=YAHZa8xZWBU
+----
+slides_link: https://speakerdeck.com/ssanderson/the-pydata-toolbox
+----
+delivered_at: Boston Algorithmic Trading
+----
+description:
+
+This talk is a highly-condensed version of my numpy tutorial that also covers
+some of the basics of [pandas](https://pandas.pydata.org).
+
+#### talk ####
+title: Unspeakably Evil Hacks in Service of Marginally Improved Syntax
+----
+video_link: https://www.youtube.com/watch?v=CcfZeZNJC4E
+----
+slides_link: https://speakerdeck.com/ssanderson/unspeakably-evil-hacks-in-service-of-marginally-improved-syntax
+----
+delivered_at: PyBay 2016
+----
+description:
+
+This talk explores a variety of non-standard techniques for Python metaprogramming. It begins with a
+general introduction to metaprogramming before jumping off the deep end to discuss [custom
+encodings](https://docs.python.org/3/library/codecs.html), [import
+hooks](https://docs.python.org/3/reference/import.html#import-hooks), and [runtime bytecode
+manipulation](https://github.com/llllllllll/codetransformer).
+
+#### talk ####
+title: A Class is a Poor Man's Loop
+----
+video_link: https://youtu.be/c-I0md_3fbQ?t=26m16s
+----
+delivered_at: PyCon 2018 (Lightning Talks)
+----
+description:
+
+This talk is a demo of [cloop](https://github.com/fiendish-devilry/cloop), a "library" I wrote for
+writing C-style for-loops as Python classes.
+
