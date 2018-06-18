@@ -32,5 +32,10 @@
         {{ post.body }}
       {% endif %}
     </div>
+    {% if not from_index %}
+    <div class="comments">
+      {{ render_disqus_comments() }}
+    </div>
+    {% endif %}
   </div>
 {% endmacro %}
