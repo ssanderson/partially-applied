@@ -6,13 +6,24 @@ author: Scott Sanderson
 ---
 twitter_handle: @scottbsanderson
 ---
-reading_time: 12
+reading_time: 15
 ---
 body:
 
 This post is an exploration of [Church Encoding](https://en.wikipedia.org/wiki/Church_encoding), a
 method of representing natural numbers as [lambda
 calculus](https://en.wikipedia.org/wiki/Lambda_calculus) terms.
+
+**Assumed Knowledge:**
+
+This post assumes that you're already familiar with a few concepts. You might still enjoy reading
+this post if you're not familiar with these concepts, but if you start to feel lost while reading,
+these might be good topics to learn about before continuing.
+
+- I assume that you're comfortable with the idea of [functions that return other
+  functions as results](https://en.wikipedia.org/wiki/Higher-order_function).
+- I assume you can read and understand basic [Python](www.python.org).
+- I assume you know what the [Natural Numbers](https://en.wikipedia.org/wiki/Natural_number) are.
 
 ### A (Very) Brief Introduction to Lambda Calculus
 
@@ -49,47 +60,21 @@ define functions that compute on natural numbers?
 
 ### Encoding Numbers as Functions
 
-We can define lambda calculus functions that compute on natural numbers by defining a **mapping**
-that associates every natural number N with a unique lambda calculus function, which we call the
-"encoding" of N. Given such an mapping, we can build lambda calculus functions that "compute on
-natural numbers" by accepting encoded numbers as inputs and producing encoded numbers as outputs.
+In the previous section, I said that we can define **every computable function** in lambda calculus,
+even though the only objects in lambda calculus are functions that accept functions as inputs and
+return new functions as outputs. This might seem like a strange assertion when almost all of the
+computable functions we care about (e.g. "add" or "multiply") are defined over sets like the
+integers or the natural numbers. How can define these functions in lambda calculus.
 
-There are lots of ways to define mappings between integers and functions. Here's an example of a
-not-very-interesting mapping written in [Python](www.python.org):
+The first step toward defining lambda calculus functions that compute on natural numbers is to
+define a **mapping** that associates every natural number N with a unique lambda calculus function,
+which we call the "encoding" of N. Given such an mapping, we can build lambda calculus functions
+that "compute on natural numbers" by accepting encoded numbers as inputs and producing encoded
+numbers as outputs. For example, a lambda calculus definition of "add one" would take the encoding
+of the number `N` and return the encoding of the number `N + 1`.
 
-```python
-def encode(N):
-    """Encode N as a function that takes no
-    arguments and returns N.
-    """
-    return lambda: N
-```
-
-I say that this encoding isn't very interesting because it doesn't allow us to implement operations
-on encoded numbers without "decoding" them back into their original representation.
-
-For example, to define an `add` function for this encoding, we would have to write something like:
-
-```python
-def add(f, g):
-    """Add two encoded numbers.
-    """
-    return lambda: f() + g()
-```
-
-This definition of `add` takes two encoded numbers and produces the encoding of their sum, but it
-works by simply decoding its inputs back into integers, adding the decoded values, and then
-re-encoding the result as a function again. We can't use this definition to encode numerals in
-lambda calculus, because we can't rely on the prior existence of a `+` operation that works on
-decoded numbers.
-
-What we really want is a way to encode integers as functions that **doesn't depend on the existence
-of unencoded integers** (or any other non-function entities).
-
-### Church Encoding
-
-How can we write an encoding that maps natural numbers to functions in a way that the resulting
-function only uses operations that are allowed in lambda calculus?
+What encoding can we use to map natural numbers to functions that only use operations that are
+allowed in lambda calculus?
 
 Well, in a world where we only have functions, we know at least the following:
 
@@ -163,7 +148,7 @@ If we call `church(3)` on "increment by one", we should get back "increment by t
 
 Note that `church(N)` doesn't know about or depend in any way on numbers. We got "add three" and
 "multiply by 16" in the examples above because we applied our church numerals to functions that
-operated on integers, but we can apply our numerals to any function that can applied iteratively on
+operated on integers, but we can apply our numerals to any function that can applied iteratively to
 its own output.
 
 For example, if we call `church(2)` on a function that gets the first element of a sequence, we
@@ -389,7 +374,7 @@ exp(M, N) == N(M)
           == lambda f: M(M(... n times ...M(f)))
 ```
 
-That still looks a pretty complicated, so let's see what this looks like in the
+That still looks a pretty complicatehttps://en.wikipedia.org/wiki/Natural_numberd, so let's see what this looks like in the
 special case where `N` is `church(2)`:
 
 ```python
@@ -406,7 +391,7 @@ multiply(M, M) == lambda f: M(M(f))
 
 ### Review
 
-In this blog post:
+In this post:
 
 - We learned how Church Encoding associates every natural number `n` with a lambda
   calculus function of the form:
@@ -414,6 +399,5 @@ In this blog post:
   church(N) = lambda f: lambda x: f(f(... N times ...f(x)))
   ```
 - We learned how to define addition, multiplication, and exponentiation for Church-encoded numerals.
-- We saw how the natural definitions of addition, multiplication and
-  exponentiation express intrinsic mathematical relationships between
-  iteration, function composition, and function application.
+- We saw how the natural definitions of addition, multiplication and exponentiation express
+  mathematical relationships between iteration, function composition, and function application.

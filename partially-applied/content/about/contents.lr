@@ -2,23 +2,27 @@ _model: about
 ---
 content:
 
-You've reached the personal website of Scott Sanderson.
+Hello friend. You've reached the personal website of Scott Sanderson.
 
-I'm a software developer and occasional speaker living in Cambridge, Massachusetts. I work primarily
-in [Python](https://www.python.org/), secondarily in C or C++, and I dabble in a variety of other
-languages.
+I'm a software developer and occasional speaker living in Cambridge, Massachusetts. My academic
+background is in mathematics and philosophy, with a focus on foundational questions in mathematics,
+computer science, epistemology, and ethics.
 
-My academic background is in Mathematics and Philosophy, with a focus on foundational questions in
-mathematics, computer science, and epistemology.
+I primarily program in [Python](https://www.python.org/) and C or C++, but I enjoy using and
+learning from many programming languages. My favorite hobby languages at the moment are
+[Haskell](https://www.haskell.org/),
+[Rust](https://doc.rust-lang.org/book/second-edition/ch00-00-introduction.html), and
+[Clojure](https://clojure.org/).
 
-I'm interested in the intersection between theoretical ideas and practical
+I generally enjoy work that takes complex ideas from mathematics or computer science and makes them
+accessible to a more general audience. I currently work at [Quantopian](https://www.quantopian.com),
+where I build systems for researching and developing quantitative trading strategies in Python.
 
-I currently work at [Quantopian](https://www.quantopian.com), where I build systems for researching
-and developing quantitative trading algorithms in Python.
+When I'm not programming, I enjoy rock climbing, board games, craft beer, and arguing with strangers
+about philosophy of language.
 
 You can find me elsewhere on the internet at the following locations:
 
 - **GitHub:** [ssanderson](www.github.com/ssanderson)
 - **Twitter:** [@scottbsanderson](https://twitter.com/scottbsanderson)
 - **LinkedIn:** https://www.linkedin.com/in/scott-sanderson-7a9a5658/
-

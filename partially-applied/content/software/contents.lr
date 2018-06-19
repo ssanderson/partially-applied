@@ -36,7 +36,7 @@ url: https://github.com/quantopian/zipline
 description:
 
 ``zipline`` is a Python library for writing and testing automated trading strategies. It serves as
-the core of [Quantopian](www.quantopian.com)'s backtesting and live trading platforms.
+the core of [Quantopian](www.quantopian.com)'s backtesting, and live trading platforms.
 
 #### project ####
 name: pgcontents

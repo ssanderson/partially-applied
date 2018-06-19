@@ -17,16 +17,16 @@ delivered_at: PyCon 2016
 ----
 description:
 
-This is the talk that I'm most proud of. [Joe Jevnik](https://github.com/llllllllll) and I were
-looking for a way to give a presentation about
-[codetransformer](https://github.com/llllllllll/codetransformer), a Python bytecode library
-manipulation library that we co-maintain. We both wanted to give the talk, but neither of us wanted
-to do the usual boring format of "you talk for five minutes, then I talk for five minutes".
+This is the talk that I'm most proud to have been involved in. [Joe
+Jevnik](https://github.com/llllllllll) and I were looking for a way to give a presentation about
+[codetransformer](https://github.com/llllllllll/codetransformer), a Python bytecode manipulation
+library that we co-maintain. We both wanted to give the talk, but neither of us wanted to do the
+usual boring format of "you talk for five minutes, then I talk for five minutes".
 
 We eventually hit on the idea of telling the audience that Joe and Scott couldn't make it, and that
 I was a conference organizer trying to give the talk in their place. The rest of the talk fell into
 place quickly after that that, and the final result was a unique presentation that still gets me
-recognized occasionally.
+recognized occasionally at conferences.
 
 #### talk ####
 title: Foundations of Numerical Computing
@@ -37,12 +37,11 @@ delivered_at: PyCon 2018
 ----
 description:
 
-I gave this tutorial at PyCon 2018 with the goal of being a first course on
-[NumPy](http://www.numpy.org/), the foundational library of the numerical
-Python ecosystem.
+I gave this tutorial at PyCon 2018 with the goal of creating a useful first course for
+[NumPy](http://www.numpy.org/), the foundational library of the numerical Python ecosystem.
 
 The tutorial is broken up into six sections, each of which has a set of exercises that go along with
-the lecture material. You can try the exercises in a live Jupyter Notebook hosted on
+the lecture material. You can try the exercises in a live Jupyter notebook hosted on
 [Binder](https://mybinder.org/) by clicking
 [here](https://mybinder.org/v2/gh/ssanderson/foundations-of-numerical-computing/master).
 
@@ -73,8 +72,8 @@ delivered_at: Boston Algorithmic Trading
 ----
 description:
 
-This talk is a highly-condensed version of my numpy tutorial that also covers
-some of the basics of [pandas](https://pandas.pydata.org).
+This talk is a highly-condensed version of my numpy tutorial that also covers some of the basics of
+[pandas](https://pandas.pydata.org).
 
 #### talk ####
 title: Unspeakably Evil Hacks in Service of Marginally Improved Syntax
@@ -102,6 +101,6 @@ delivered_at: PyCon 2018 (Lightning Talks)
 ----
 description:
 
-This talk is a demo of [cloop](https://github.com/fiendish-devilry/cloop), a "library" I wrote for
-writing C-style for-loops as Python classes.
+This lightning talk is a demo of [cloop](https://github.com/fiendish-devilry/cloop), a horrifying
+"library" I created for writing C-style for-loops using Python class bodies.
 
