@@ -64,7 +64,7 @@ In the previous section, I said that we can define **every computable function**
 even though the only objects in lambda calculus are functions that accept functions as inputs and
 return new functions as outputs. This might seem like a strange assertion when almost all of the
 computable functions we care about (e.g. "add" or "multiply") are defined over sets like the
-integers or the natural numbers. How can define these functions in lambda calculus.
+integers or the natural numbers. How can we define these functions in lambda calculus?
 
 The first step toward defining lambda calculus functions that compute on natural numbers is to
 define a **mapping** that associates every natural number N with a unique lambda calculus function,
