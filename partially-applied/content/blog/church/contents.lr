@@ -1,6 +1,6 @@
 title: Exploring Church Numerals with Python
 ---
-pub_date: 2018-06-03
+pub_date: 2018-06-18
 ---
 author: Scott Sanderson
 ---
@@ -16,9 +16,9 @@ calculus](https://en.wikipedia.org/wiki/Lambda_calculus) terms.
 
 **Assumed Knowledge:**
 
-This post assumes that you're already familiar with a few concepts. You might still enjoy reading
-this post if you're not familiar with these concepts, but if you start to feel lost while reading,
-these might be good topics to learn about before continuing.
+This post assumes that you're already familiar with a few concepts. You might still enjoy the post
+if you're not familiar with these ideas, but if you start to feel lost while reading, these might be
+good topics to learn about before continuing.
 
 - I assume that you're comfortable with the idea of [functions that return other
   functions as results](https://en.wikipedia.org/wiki/Higher-order_function).
