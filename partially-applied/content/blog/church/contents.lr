@@ -359,7 +359,7 @@ ends up being the simplest of any of the operators we've looked at:
 
 ```python
 def exp(M, N):
-    """Raise `M` to the power of `M`.
+    """Raise `M` to the power of `N`.
     """
     return N(M)
 ```
