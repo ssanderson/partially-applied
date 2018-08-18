@@ -1,6 +1,6 @@
 title: Exploring Church Numerals with Python
 ---
-pub_date: 2018-06-18
+pub_date: 2018-08-18
 ---
 author: Scott Sanderson
 ---
@@ -14,15 +14,17 @@ This post is an exploration of [Church Encoding](https://en.wikipedia.org/wiki/C
 method of representing natural numbers as [lambda
 calculus](https://en.wikipedia.org/wiki/Lambda_calculus) terms.
 
+[//]: # (PLUGIN-READ-FULL-POST)
+
 **Assumed Knowledge:**
 
-This post assumes that you're already familiar with a few concepts. You might still enjoy the post
-if you're not familiar with these ideas, but if you start to feel lost while reading, these might be
-good topics to learn about before continuing.
+This post assumes that you're already familiar with a few concepts. You may still enjoy the post if
+you're not familiar with these ideas, but if you start to feel lost, these might be good topics to
+brush up on before continuing.
 
 - I assume that you're comfortable with the idea of [functions that return other
   functions as results](https://en.wikipedia.org/wiki/Higher-order_function).
-- I assume you can read and understand basic [Python](www.python.org).
+- I assume you can read and [Python](www.python.org) code.
 - I assume you know what the [Natural Numbers](https://en.wikipedia.org/wiki/Natural_number) are.
 
 ### A (Very) Brief Introduction to Lambda Calculus
@@ -46,8 +48,6 @@ Despite these limitations, lambda calculus turns out to be a surprisingly powerf
 computing. So powerful, in fact, that we have [reason to
 believe](https://en.wikipedia.org/wiki/Church%E2%80%93Turing_thesis) that lambda calculus can define
 every computable function!
-
-[//]: # (PLUGIN-READ-FULL-POST)
 
 If this is your first time hearing about lambda calculus, that last sentence probably raised a few
 questions. How can lambda calculus define every computable function when it only operates on
@@ -243,11 +243,8 @@ f(f(... (m + n) times ...f(x)))
 Which is exactly what we want `add(M, N)` to produce!
 
 ```python
->>> unchurch(add(church(3), church(4)))
+unchurch(add(church(3), church(4)))
 7
-```
-
-```python
 >>> unchurch(add(church(10), church(5)))
 15
 ```
@@ -271,8 +268,8 @@ f(f(... n times ...f(x)))`
 ```
 
 If we apply `M` to `N(f)`, we get a function that applies `N(f)`, `m`
-times. Since `N(f)` itself invokes `f` `n` times, we end up with a total of `m
-* n` applications of `f`, which is precisely what we want for `multiply(M, N)`.
+times. Since `N(f)` itself invokes `f` `n` times, we end up with a total of
+`m * n` applications of `f`, which is precisely what we want for `multiply(M, N)`.
 
 ```python
 >>> unchurch(multiply(church(2), church(3)))
@@ -367,15 +364,17 @@ def exp(M, N):
 The first time I saw this definition it blew my mind. Exponentiation on church numerals is just
 flipped function application!
 
-To see why this works, we can start by expanding `N(M)`. Assuming `N == church(n)`, we have:
+To see why this works, we can start by expanding `N(M)`.
+
+Assuming `N == church(n)`, we have:
 
 ```python
 exp(M, N) == N(M)
           == lambda f: M(M(... n times ...M(f)))
 ```
 
-That still looks a pretty complicatehttps://en.wikipedia.org/wiki/Natural_numberd, so let's see what this looks like in the
-special case where `N` is `church(2)`:
+That still looks a pretty complicated, so let's see what this looks like in the special case where
+`N` is `church(2)`:
 
 ```python
 exp(M, church(2)) == church(2)(M)
@@ -386,18 +385,52 @@ Wait a second, that looks familiar... `exp(M, church(2))` expands to the same ex
 `multiply(M, M)`!
 
 ```python
-multiply(M, M) == lambda f: M(M(f))
+multiply(M, N) == lambda f: M(N(f))
+multiply(M, M) == lambda f: M(M(f)) == exp(M, church(2))
 ```
+
+This shows that our definition of `exp` preserves the expected property that `exp(M, church(2)) ==
+mutiply(M, M)`.
+
+A bit less obviously, `exp(M, church(3))` expands as follows:
+
+```python
+exp(M, church(3))
+== church(3)(M)
+== lambda f: M(                M(M(f)) )
+== lambda f: M( (lambda g: M(M(g)))(f) )
+== lambda f: M( exp(M,   church(2))(f) )
+== multiply(M, exp(M, church(2)))
+```
+
+Which shows us (as expected) that `M ** 3 == M * (M ** 2)` under our encoding.
+
+We can use this expansion to give an inductive proof that `M ** (N + 1)` expands to `M *
+(M ** N)`:
+
+```python
+exp(M, church(n + 1))
+== church(n + 1)(M)
+== lambda f: M(        ... n + 1 times ...        M(f) )
+== lambda f: M( M(        ... n times ...        M(f)) )
+== lambda f: M( (lambda g: M(... n times ... M(g)))(f) )
+== lambda f: M( exp(M,                      church(n)) )
+```
+
+From here it's not too hard to show that our encoding of exponentiation works for all cases.
 
 ### Review
 
 In this post:
 
 - We learned how Church Encoding associates every natural number `n` with a lambda
-  calculus function of the form:
-  ```python
-  church(N) = lambda f: lambda x: f(f(... N times ...f(x)))
-  ```
+  calculus function that applies an input function `n` times.
 - We learned how to define addition, multiplication, and exponentiation for Church-encoded numerals.
 - We saw how the natural definitions of addition, multiplication and exponentiation express
   mathematical relationships between iteration, function composition, and function application.
+
+You can learn more about lambda calculus in many places on the internet. One resource that I
+particularly enjoy is the [Lambda Calculus
+entry](https://plato.stanford.edu/entries/lambda-calculus/) in the [Stanford Encyclopedia of
+Philosophy](https://plato.stanford.edu/index.html), which includes links and references to related
+concepts in other areas of computing, mathematics, and philosophy.

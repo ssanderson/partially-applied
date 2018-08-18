@@ -1,12 +1,25 @@
+.narrow-screen {
+    display: none;
+}
+
+@media (max-width: 800px) {
+    .narrow-screen {
+        display: inherit;
+    }
+    .wide-screen {
+        display: none;
+    }
+}
+
 #site-content {
+    margin-bottom: 2rem;
     margin-left: auto;
     margin-right: auto;
     margin-top: 2rem;
-    margin-bottom: 2rem;
     width: 760px;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 800px) {
     #site-content {
         width: 90%;
     }
@@ -18,29 +31,29 @@ header {
 
 header h1 {
     color: #169bbd;
-    margin: 0;
-    font-weight: normal;
     font-size: 2.25rem;
+    font-weight: normal;
+    margin: 0;
 }
 
 .menu {
-    padding: 0;
-    margin: 0;
+    color: grey;
     font-family: 'Lato';
     font-size: 1.5rem;
     margin-top: 0.5rem;
-    color: grey;
+    margin: 0;
+    padding: 0;
 }
 .menu-item {
     display: inline;
     margin-right: 1rem;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 800px) {
     .menu-item {
-        margin-top: 0;
-        margin-right: 0.5rem;
         font-size: 1.15rem;
+        margin-right: 0.5rem;
+        margin-top: 0;
     }
 }
 
@@ -63,6 +76,13 @@ header ul a:hover {
 .article-header {
     margin-bottom: 1.5rem;
 }
+.article-body {
+    font-size: 1rem;
+}
+.article-body ul,ol {
+    padding-left: 2rem;
+    margin: 0;
+}
 .article-title {
     font-size: 1.5rem;
 }
@@ -76,6 +96,8 @@ header ul a:hover {
 .article-metadata {
     display: inline;
     font-size: 0.95rem;
+    /* Use line-height here because this is display: inline.*/
+    line-height: 2;
 }
 .article-reading-time {
     display: inherit;
@@ -87,6 +109,9 @@ header ul a:hover {
 .article-publication-date-text {
     display: inherit;
     padding: 0.2rem;
+}
+.comments {
+    margin-top: 1.5rem;
 }
 
 body {
@@ -106,7 +131,7 @@ div.page {
     line-height: 1.5;
 }
 
-@media (max-width: 760px) {
+@media (max-width: 800px) {
     div.page {
         font-size: 1.05rem;
     }
@@ -122,7 +147,7 @@ a:hover {
 }
 
 header {
-    margin-bottom: 2.5rem;
+    margin-bottom: 1.5rem;
 }
 
 header h1 a:hover {
@@ -135,10 +160,13 @@ header h1 a:hover {
 
 .hll pre {
     background-color: #f0f0f0;
-    padding: 0.75rem;
-    font-size: 1.15rem;
     font-family: "Inconsolata", monospace;
+    font-size: 1.1rem;
     overflow: auto;
+    padding-bottom: 0.75rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
+    padding-top: 0.75rem;
 }
 
 code {
@@ -146,25 +174,19 @@ code {
     font-size: 1.1rem;
 }
 
-.hll pre, blockquote {
-    margin-left: 2.5%;
-}
-
-@media (max-width: 760px) {
+@media (max-width: 800px) {
     .hll pre {
-        margin-left: 0;
-        margin-right: 0;
+        background-color: #f0f0f0;
         font-size: 1.05rem;
         font-weight:700;
-        padding: 0.25rem;
-        background-color: transparent;
+        padding-left: 1rem;
     }
 }
 
 .hll .err {
-    color: black;
     background-color: transparent;
-    border: 0px;
+    border: 0;
+    color: black;
 }
 
 html {
