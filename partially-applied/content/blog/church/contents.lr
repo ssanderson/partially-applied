@@ -10,9 +10,9 @@ reading_time: 15
 ---
 body:
 
-This post is an exploration of [Church Encoding](https://en.wikipedia.org/wiki/Church_encoding), a
-method of representing natural numbers as [lambda
-calculus](https://en.wikipedia.org/wiki/Lambda_calculus) terms.
+This post explores [Church Encoding](https://en.wikipedia.org/wiki/Church_encoding), a method of
+representing natural numbers as [lambda calculus](https://en.wikipedia.org/wiki/Lambda_calculus)
+terms.
 
 [//]: # (PLUGIN-READ-FULL-POST)
 
