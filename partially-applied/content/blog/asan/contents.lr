@@ -1,0 +1,39 @@
+title: How to Test Python C Extensions with Address Sanitizer and UBSan
+---
+pub_date: 2018-08-25
+---
+author: Scott Sanderson
+---
+twitter_handle: @scottbsanderson
+---
+reading_time: 10
+---
+body:
+
+
+
+[//]: # (PLUGIN-READ-FULL-POST)
+
+### A Toy CPython Extension
+
+```c
+{% include 'hello_v0.c' %}
+```
+
+```python
+{% include 'setup_v0.py' %}
+```
+
+```bash
+$ python3 setup_v0.py build_ext --inplace
+```
+
+```python
+$ python3
+Python 3.5.2 (default, Nov 23 2017, 16:37:01)
+[GCC 5.4.0 20160609] on linux
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import hello
+>>> hello.hello()
+Hello World!
+```
