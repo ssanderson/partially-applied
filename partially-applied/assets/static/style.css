@@ -159,7 +159,7 @@ header h1 a:hover {
 }
 
 .hll pre {
-    background-color: #f0f0f0;
+    background-color: #f7fafb;
     font-family: "Inconsolata", monospace;
     font-size: 1.1rem;
     overflow: auto;
@@ -167,6 +167,10 @@ header h1 a:hover {
     padding-left: 1rem;
     padding-right: 1rem;
     padding-top: 0.75rem;
+    border: solid;
+    border-width: 1px;
+    border-color: black;
+    border-radius: 3px;
 }
 
 code {
@@ -176,10 +180,8 @@ code {
 
 @media (max-width: 800px) {
     .hll pre {
-        background-color: #f0f0f0;
         font-size: 1.05rem;
         font-weight:700;
-        padding-left: 1rem;
     }
 }
 
