@@ -22,9 +22,9 @@ This post assumes that you're already familiar with a few concepts. You may stil
 you're not familiar with these ideas, but if you start to feel lost, these might be good topics to
 brush up on before continuing.
 
+- I assume you can read [Python](www.python.org) code.
 - I assume that you're comfortable with the idea of [functions that return other
   functions as results](https://en.wikipedia.org/wiki/Higher-order_function).
-- I assume you can read and [Python](www.python.org) code.
 - I assume you know what the [Natural Numbers](https://en.wikipedia.org/wiki/Natural_number) are.
 
 ### A (Very) Brief Introduction to Lambda Calculus
@@ -42,15 +42,15 @@ purposes of this post, the important features of the lambda calculus are:
 
 1. The only objects of lambda calculus are functions.
 2. Lambda calculus has no notion of assignment to variables.
-3. The only way to introduce a new variable in lambda calculus is as a parameter to a function.
+3. The only way to introduce a new name in lambda calculus is as a parameter to a function.
 
 Despite these limitations, lambda calculus turns out to be a surprisingly powerful model of
 computing. So powerful, in fact, that we have [reason to
-believe](https://en.wikipedia.org/wiki/Church%E2%80%93Turing_thesis) that lambda calculus can define
-every computable function!
+believe](https://en.wikipedia.org/wiki/Church%E2%80%93Turing_thesis) that lambda calculus can
+express every computable function!
 
 If this is your first time hearing about lambda calculus, that last sentence probably raised a few
-questions. How can lambda calculus define every computable function when it only operates on
+questions. How can lambda calculus express every computable function when it only operates on
 functions? What about functions defined on integers like "add one" or "double"? Are they not
 computable? What does it even **mean** to "compute" using only functions?
 
@@ -70,10 +70,10 @@ The first step toward defining lambda calculus functions that compute on natural
 define a **mapping** that associates every natural number N with a unique lambda calculus function,
 which we call the "encoding" of N. Given such an mapping, we can build lambda calculus functions
 that "compute on natural numbers" by accepting encoded numbers as inputs and producing encoded
-numbers as outputs. For example, a lambda calculus definition of "add one" would take the encoding
-of the number `N` and return the encoding of the number `N + 1`.
+numbers as outputs. For example, a lambda calculus definition of "add one" would take the
+**encoding** of the number `N` and return the **encoding** of the number `N + 1`.
 
-What encoding can we use to map natural numbers to functions that only use operations that are
+What encoding can we use to map natural numbers to functions that use only operations that are
 allowed in lambda calculus?
 
 Well, in a world where we only have functions, we know at least the following:
@@ -82,7 +82,7 @@ Well, in a world where we only have functions, we know at least the following:
 - The input to `encode(N)` will be a function.
 - The output of `encode(N)` will be a function.
 
-In other words, we know our encoding operation will have to look like this:
+In other words, we know our encoding operation will have to look something like this:
 
 ```python
 encode(0) == lambda f: lambda x: ???
@@ -151,8 +151,8 @@ Note that `church(N)` doesn't know about or depend in any way on numbers. We got
 operated on integers, but we can apply our numerals to any function that can applied iteratively to
 its own output.
 
-For example, if we call `church(2)` on a function that gets the first element of a sequence, we
-should end up with "get the first element of the first element of a sequence":
+For example, if we call `church(2)` on a function that gets the first element of a sequence, we end
+up with "get the first element of the first element of a sequence":
 
 ```python
 >>> church(2)(lambda x: x[0])(['foo', 'bar'])
@@ -187,7 +187,7 @@ attention to implementing arithmetic on Church-encoded values.
 
 #### Increment
 
-The simplest operation we can implement on an Church-encoded integer is "increment by one".
+The simplest operation we can implement on an Church-encoded integer is "increment by one". Here's one w
 
 ```python
 def increment(M):
@@ -198,7 +198,7 @@ def increment(M):
 
 The key observation here is that `M(f)` is a function that calls `f` some number of times on `x`,
 and we need to produce a function that calls `f` one time more than `M`. We can implement that
-function by applying `M(f)` to `x` and then feeding the result into `f`.
+function by applying `M(f)` to `x` and then feeding the result into `f` one final time.
 
 ```python
 >>> unchurch(increment(church(3)))
@@ -280,9 +280,9 @@ times. Since `N(f)` itself invokes `f` `n` times, we end up with a total of
 
 #### Aside: Function Composition
 
-If you're familiar with functional programming, you might notice a common structure in our solutions
-for `add` and `multiply`. The innermost expression of both functions involved "chained" application
-of a pair of functions.
+If you're familiar with functional programming, you might notice a common structure in our
+definitions of `add` and `multiply`. The innermost expression of both functions involved "chained"
+application of a pair of functions.
 
 In the implementation of `add`, we chained `M(f)` and `N(f)` on the input `x`:
 
@@ -307,7 +307,7 @@ programming (and more generally in mathematics) that it has a special name: **fu
 composition**.
 
 If we allow ourselves to cheat the lambda calculus rules a bit and make use of a `compose` helper
-function, the common structure of `add` and `multiply` becomes much clearer:
+function, the common structure of `add` and `multiply` becomes clearer:
 
 ```python
 def compose(f, g):
@@ -351,8 +351,8 @@ These compose-based definitions still produce the expected results:
 #### Exponentiation
 
 The last definition I want to show in this post is exponentiation. We often think of exponentiation
-as being "more complex" than addition or multiplication, but the definition of exponentiation is the
-ends up being the simplest of any of the operators we've looked at:
+as being "more complex" than addition or multiplication, but the definition of exponentiation ends
+up being the simplest of any of the operators we've seen:
 
 ```python
 def exp(M, N):
@@ -362,7 +362,7 @@ def exp(M, N):
 ```
 
 The first time I saw this definition it blew my mind. Exponentiation on church numerals is just
-flipped function application!
+(flipped) function application!
 
 To see why this works, we can start by expanding `N(M)`.
 
@@ -389,10 +389,9 @@ multiply(M, N) == lambda f: M(N(f))
 multiply(M, M) == lambda f: M(M(f)) == exp(M, church(2))
 ```
 
-This shows that our definition of `exp` preserves the expected property that `exp(M, church(2)) ==
-mutiply(M, M)`.
+This shows that our definition of `exp` preserves the expected property that `M ** 2 == M * M`.
 
-A bit less obviously, `exp(M, church(3))` expands as follows:
+A bit less obviously, the expansion of `exp(M, church(3))` can be written as follows:
 
 ```python
 exp(M, church(3))
@@ -405,8 +404,7 @@ exp(M, church(3))
 
 Which shows us (as expected) that `M ** 3 == M * (M ** 2)` under our encoding.
 
-We can use this expansion to give an inductive proof that `M ** (N + 1)` expands to `M *
-(M ** N)`:
+We can modify this expansion slightly to show that `M ** (N + 1)` expands to `M * (M ** N)`:
 
 ```python
 exp(M, church(n + 1))
@@ -417,7 +415,8 @@ exp(M, church(n + 1))
 == lambda f: M( exp(M,                      church(n)) )
 ```
 
-From here it's not too hard to show that our encoding of exponentiation works for all cases.
+From here it's not too hard to give an inductive proof that our encoding of exponentiation works for
+all cases.
 
 ### Review
 
@@ -425,12 +424,14 @@ In this post:
 
 - We learned how Church Encoding associates every natural number `n` with a lambda
   calculus function that applies an input function `n` times.
-- We learned how to define addition, multiplication, and exponentiation for Church-encoded numerals.
-- We saw how the natural definitions of addition, multiplication and exponentiation express
+- We learned how to define addition, multiplication, and exponentiation on Church numerals.
+- We saw how the natural definitions of addition, multiplication and exponentiation are related to
   mathematical relationships between iteration, function composition, and function application.
 
-You can learn more about lambda calculus in many places on the internet. One resource that I
-particularly enjoy is the [Lambda Calculus
+All of this just barely scratches the surface of the rich history and theory of lambda calculus. If
+you're interested in learning more, there are many excellent resources on the internet where you can
+continue reading.. One resource that I particularly enjoy is the [Lambda Calculus
 entry](https://plato.stanford.edu/entries/lambda-calculus/) in the [Stanford Encyclopedia of
-Philosophy](https://plato.stanford.edu/index.html), which includes links and references to related
-concepts in other areas of computing, mathematics, and philosophy.
+Philosophy](https://plato.stanford.edu/index.html), which includes links references for further
+reading as well as links to related articles in other areas of computing, mathematics, and
+philosophy.
