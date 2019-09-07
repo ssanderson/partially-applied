@@ -1,0 +1,123 @@
+title: Unexpected Python 3 Porting Problems
+---
+pub_date: 2019-09-07
+---
+author: Scott Sanderson
+---
+twitter_handle: @scottbsanderson
+---
+reading_time: 15
+---
+body:
+
+**Author's Note:** This post was written in September 2019, but wasn't published until March 2020.
+
+My team at work has recently been porting a large proprietary Python 2 application to Python 3. We
+already had a fair amount of experience with Python 3, and there are
+[lots](https://docs.python.org/3/howto/pyporting.html) of
+[resources](https://portingguide.readthedocs.io/en/latest/) online about the porting process, so we
+had a pretty good idea of what to expect from the transition.
+
+For the most part, our expectations were correct: we had to upgrade dependencies to versions that
+supported Python 3; we had to update locations where we were mixing `bytes` and `unicode`; we had to
+update locations where we iterated multiple times over `map` or `filter` results.
+
+[//]: # (PLUGIN-READ-FULL-POST)
+
+### Numpy `int64` is No Longer a Subclass Of `int` in Python 3
+
+In Python 2, [`numpy`'s](https://numpy.org/) `int64` type is a subclass of the built-in `int`:
+
+```python
+>>> import numpy as np
+>>> issubclass(np.int64, int)
+True
+```
+
+In Python 3 however, [`numpy.int64` is no longer an `int` subclass](https://github.com/numpy/numpy/issues/2951):
+
+```python
+>>> import numpy as np
+>>> issubclass(np.int64, int)
+False
+```
+
+Surprisingly, this difference is intentional on the part of the NumPy team`np.int64` isn't an `int` subclass in Python 3, because `int64` can only hold 64-bit integers, and
+Python 3's `int` can hold arbitrarily large values. By contrast, Python 2's `int` is either a 32-bit
+or 64-bit integer, depending on your platform, and there's a separate `long` type in Python 2 for
+arbitrary-size integers.
+
+Because `int64` is a subclass of `int` in Python 2, the standard library's `json` module can
+serialize an object containing `int64`s:
+
+```python
+>>> import json
+>>> import numpy as np
+>>> json.dumps({'a': np.int64(5), 'b': np.int64(6)})
+'{"a": 5, "b": 6}'
+```
+
+In Python 3, however, `json` can no longer handle `int64`s by default:
+
+```python
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+  File "/usr/lib/python3.6/json/__init__.py", line 231, in dumps
+    return _default_encoder.encode(obj)
+  File "/usr/lib/python3.6/json/encoder.py", line 199, in encode
+    chunks = self.iterencode(o, _one_shot=True)
+  File "/usr/lib/python3.6/json/encoder.py", line 257, in iterencode
+    return _iterencode(o, 0)
+  File "/usr/lib/python3.6/json/encoder.py", line 180, in default
+    o.__class__.__name__)
+TypeError: Object of type 'int64' is not JSON serializable
+```
+
+Fortunately, it's not too hard to teach the `json` module how to handle `int64`. `json.dumps`
+accepts an optional parameter named
+[`default`](https://docs.python.org/3/library/json.html#json.dump), which can be passed a function
+that converts objects into types that `json` understands natively:
+
+```python
+>>> def default(obj):
+...     if isinstance(obj, np.integer):
+...         return int(obj)
+...     raise TypeError(f"Don't know how to serialize object of type {type(obj)}.")
+...
+>>> json.dumps({'a': np.int64(5), 'b': np.int64(6)}, default=default)
+'{"a": 5, "b": 6}'
+```
+
+It's also possible to define custom subclasses of `json.JSONEncoder`, which can define a `default`
+method that serves the same purpose:
+
+```python
+class MyEncoder(json.JSONEncoder):
+
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+```
+
+# `warnings.catch_warnings` Resets Warning Filters
+
+Python's built-in `warnings` module provides a suite of tool for emitting warnings in scenarios
+where a code is doing something bad, but not error-worthy. By default, calling `warnings.warn`
+prints a string to `stdout` that the warning message, the warning "category" (defaulting to
+`UserWarning`), and the line number of the offending code:
+
+```python
+>>> import warnings
+>>> warnings.warn("Don't do that!")
+__main__:1: UserWarning: Don't do that!
+```
+
+To avoid spamming users with duplicate warnings, by default the `warnings` module will only display
+a given warning once:
+
+```python
+>>> import warnings
+>>> warnings.warn("Don't do that!")
+__main__:1: UserWarning: Don't do that!
+>>> warnings.warn("Don't do that!")
+>>>
+```
