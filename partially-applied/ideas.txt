@@ -42,8 +42,6 @@ happening and being concise enough that a reader can quickly understand the
 relevant details of the scenario.
 
 
-- Work with Deadlines, not Timeouts
-
 - Turkey Burger Comments/Docstrings
 
   Docstrings which don't provide any value beyond what was already obvious from the name.
