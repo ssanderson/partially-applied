@@ -1,0 +1,5 @@
+lektor
+pip-tools
+numpy
+IPython
+pandas
