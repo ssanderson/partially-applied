@@ -10,15 +10,19 @@ reading_time: 5
 ---
 body:
 
-This past Friday was my last day at [Quantopian](https://www.quantopian.com/), after a little over six years (or eight
-years, depending on how you count).
+This past Friday was my last day at [Quantopian](https://www.quantopian.com/), after a little over
+six years (or eight years, depending on how you count). I'm extremely proud of the work I've done as
+part of the Quantopian team. I'm also extremely grateful for the trust that Quantopian as an
+organization has placed in me during my tenure. I can't think of another place where I could have
+grown so much and learned so much, so early in my career.
 
 [//]: # (PLUGIN-READ-FULL-POST)
 
 During my time at Quantopian I've been privileged to be able to work on a pretty cool set of projects. I helped build:
 
-- A [hosted Jupyter Notebook service](https://www.youtube.com/watch?v=omxY1YsPGUc) that was (to my knowledge) the first
-  large-scale deployment of [JupyterHub](https://jupyterhub.readthedocs.io/en/stable/).
+- A [hosted Jupyter Notebook service](https://www.youtube.com/watch?v=omxY1YsPGUc) that was, to my
+  knowledge, the first large-scale deployment of
+  [JupyterHub](https://jupyterhub.readthedocs.io/en/stable/).
 
 - A [domain-specific query system](https://www.quantopian.com/docs/user-guide/tools/pipeline) for
   doing cross-sectional timeseries analysis of financial data.
@@ -35,8 +39,9 @@ collaborators, both online and in person.
 
 ### What's Next?
 
-I'm joining an early stage startup based in the Bay Area. I'll be working from home in Boston until the COVID-19
-pandemic subsides, after which I'll be splitting time between the east and west coasts for at least a few months.
+I'm joining an early stage startup based in the Bay Area. I'll be working from home in Boston until
+the COVID-19 pandemic subsides, after which I'll be splitting time between the east and west coasts
+for at least a few months.
 
 As far as my open source work goes, I expect to be less involved in Quantopian-managed open source projects, but
 otherwise I don't think much will change. I plan to continue maintaining
