@@ -14,8 +14,6 @@ This post explores [Church Encoding](https://en.wikipedia.org/wiki/Church_encodi
 representing natural numbers as [lambda calculus](https://en.wikipedia.org/wiki/Lambda_calculus)
 terms.
 
-[//]: # (PLUGIN-READ-FULL-POST)
-
 **Assumed Knowledge:**
 
 This post assumes that you're already familiar with a few concepts. You may still enjoy the post if
@@ -31,6 +29,8 @@ brush up on before continuing.
 
 Lambda calculus is a theoretical model for computing in which the only allowed operations are:
 
+[//]: # (PLUGIN-READ-FULL-POST)
+
 1. Defining anonymous functions.
 2. Applying functions to arguments.
 
@@ -45,7 +45,7 @@ purposes of this post, the important features of the lambda calculus are:
 3. The only way to introduce a new name in lambda calculus is as a parameter to a function.
 
 Despite these limitations, lambda calculus turns out to be a surprisingly powerful model of
-computing. So powerful, in fact, that we have [reason to
+computing. It's so powerful, in fact, that we have [reason to
 believe](https://en.wikipedia.org/wiki/Church%E2%80%93Turing_thesis) that lambda calculus can
 express every computable function!
 
@@ -56,7 +56,7 @@ computable? What does it even **mean** to "compute" using only functions?
 
 It would take much more than a blog post to answer all of these questions completely. The remainder
 of this post will attempt to answer just one part of one of those questions: How can lambda calculus
-define functions that compute on natural numbers?
+define functions that compute on natural numbers, using only functions?
 
 ### Encoding Numbers as Functions
 

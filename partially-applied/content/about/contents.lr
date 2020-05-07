@@ -6,19 +6,23 @@ Hello friend. You've reached the personal website of Scott Sanderson.
 
 I'm a software developer living in Cambridge, Massachusetts. My academic background is in
 mathematics and philosophy, with a focus on foundational questions in mathematics, computer science,
-epistemology, and ethics.
+and epistemology.
 
-Professionally, I program primarily in [Python](https://www.python.org/) and C++, but I enjoy using
-and learning from many programming languages. My favorite hobby languages at the moment are
+Professionally, I've worked mostly in [Python](https://www.python.org/) and C++, but I enjoy using
+and learning from many different programming languages. Hobby languages that I've enjoyed include
 [Rust](https://doc.rust-lang.org/book/second-edition/ch00-00-introduction.html),
-[Haskell](https://www.haskell.org/), [Clojure](https://clojure.org/).
+[Haskell](https://www.haskell.org/), [Clojure](https://clojure.org/), [Go](https://golang.org/), and
+[Emacs Lisp](https://www.gnu.org/software/emacs/manual/html_node/elisp/).
 
-I enjoy work that makes ideas from mathematics or computer science accessible to a general
-audience. I currently work at [Quantopian](https://www.quantopian.com), where I build systems for
-researching and developing quantitative trading strategies.
+I enjoy working on problems that involve API design, performance optimization, and/or
+metaprogramming. I also enjoy working on tools that improve developer productivity.
 
-When I'm not programming, I enjoy rock climbing, board games, craft beer, and arguing with strangers
-about philosophy of language.
+I am on a short break between two jobs, but I most recently worked at
+[Quantopian](https://www.quantopian.com), where I build systems for researching and developing
+quantitative trading strategies.
+
+When I'm not programming, I enjoy rock climbing, board games, craft beer, and talking about
+philosophy.
 
 You can find me elsewhere on the internet at the following locations:
 

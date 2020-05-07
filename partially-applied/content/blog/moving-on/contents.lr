@@ -1,0 +1,50 @@
+title: Moving on From Quantopian
+---
+pub_date: 2020-05-07
+---
+author: Scott Sanderson
+---
+twitter_handle: @scottbsanderson
+---
+reading_time: 5
+---
+body:
+
+This past Friday was my last day at [Quantopian](https://www.quantopian.com/), after a little over six years (or eight
+years, depending on how you count).
+
+[//]: # (PLUGIN-READ-FULL-POST)
+
+During my time at Quantopian I've been privileged to be able to work on a pretty cool set of projects. I helped build:
+
+- A [hosted Jupyter Notebook service](https://www.youtube.com/watch?v=omxY1YsPGUc) that was (to my knowledge) the first
+  large-scale deployment of [JupyterHub](https://jupyterhub.readthedocs.io/en/stable/).
+
+- A [domain-specific query system](https://www.quantopian.com/docs/user-guide/tools/pipeline) for
+  doing cross-sectional timeseries analysis of financial data.
+
+- Another [domain-specific query system](https://www.quantopian.com/docs/user-guide/tools/optimize) for constrained
+  portfolio optimization.
+
+- Data ingestion systems that process hundreds of gigabytes of financial data from over 40 countries, every night.
+
+I've also had the opportunity to be involved with several awesome open source projects in the PyData
+ecosystem. I'm particularly proud and grateful to have been part of the IPython/Jupyter community,
+who guided me through my first open source pull request, and who have been wonderful friends and
+collaborators, both online and in person.
+
+### What's Next?
+
+I'm joining an early stage startup based in the Bay Area. I'll be working from home in Boston until the COVID-19
+pandemic subsides, after which I'll be splitting time between the east and west coasts for at least a few months.
+
+As far as my open source work goes, I expect to be less involved in Quantopian-managed open source projects, but
+otherwise I don't think much will change. I plan to continue maintaining
+[`python-interface`](https://github.com/ssanderson/python-interface), and I hope to continue being involved in the
+PyData community. I may still check in from time to time in the [Zipline](https://github.com/quantopian/zipline) issue
+tracker, but I'll be likely be less active than I've been recently.
+
+I'm going to have a few weeks of down time between jobs. I've got a good sized reading list to work thorugh, and I've
+got ideas for a couple small projects, but I'm interested in suggestions for fun open source projects to hack on. I
+particularly enjoy working on projects that improve developer productivity, projects involving low-level performance
+tuning, and projects that involve interesting metaprogramming challenges.
