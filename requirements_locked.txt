@@ -41,7 +41,7 @@ pytz==2020.1              # via babel, pandas
 requests[security]==2.23.0  # via lektor
 six==1.14.0               # via cryptography, pip-tools, pyopenssl, python-dateutil, traitlets
 traitlets==4.3.3          # via ipython
-urllib3==1.25.9           # via requests
+urllib3==1.26.5           # via requests
 watchdog==0.10.2          # via lektor
 wcwidth==0.1.9            # via prompt-toolkit
 werkzeug==1.0.1           # via flask
