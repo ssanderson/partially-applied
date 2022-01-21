@@ -17,7 +17,7 @@ flask==1.1.2              # via lektor
 idna==2.9                 # via requests
 inifile==0.4              # via lektor
 ipython-genutils==0.2.0   # via traitlets
-ipython==7.14.0           # via -r requirements.txt
+ipython==7.16.3           # via -r requirements.txt
 itsdangerous==1.1.0       # via flask
 jedi==0.17.0              # via ipython
 jinja2==2.11.2            # via flask, lektor
