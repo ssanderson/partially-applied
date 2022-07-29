@@ -23,7 +23,7 @@ jedi==0.17.0              # via ipython
 jinja2==2.11.2            # via flask, lektor
 lektor==3.1.3             # via -r requirements.txt
 markupsafe==1.1.1         # via jinja2
-mistune==0.8.4            # via lektor
+mistune==2.0.3            # via lektor
 numpy==1.18.4             # via -r requirements.txt, pandas
 pandas==1.0.3             # via -r requirements.txt
 parso==0.7.0              # via jedi
