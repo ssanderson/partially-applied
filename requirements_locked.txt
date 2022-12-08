@@ -6,7 +6,7 @@
 #
 babel==2.8.0              # via lektor
 backcall==0.1.0           # via ipython
-certifi==2020.4.5.1       # via requests
+certifi==2022.12.7       # via requests
 cffi==1.14.0              # via cryptography
 chardet==3.0.4            # via requests
 click==7.1.2              # via flask, lektor, pip-tools
